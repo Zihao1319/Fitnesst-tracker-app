@@ -128,6 +128,10 @@ class DisplayExercise2 extends React.Component {
   //     console.log(this.state);
   //   };
 
+  //   handleFormSubmit = (index, event) => {
+  //     this.props.onHandleFormSubmit(index, event);
+  //   };
+
   render() {
     // console.log(this.state);
     const bodyParts = this.props.bodyParts;
@@ -138,6 +142,7 @@ class DisplayExercise2 extends React.Component {
     // console.log(this.props.workoutRows, "aaa");
     return (
       <div>
+        {/* <form onSubmit={this.handleFormSubmit}> */}
         {bodyParts.map((bodyPart, index) => {
           return (
             <table>
@@ -211,6 +216,10 @@ class DisplayExercise2 extends React.Component {
             </table>
           );
         })}
+        {/* <button type="submit" onClick={this.handleFormSubmit}>
+            Save Workout!
+          </button> */}
+        {/* </form> */}
       </div>
     );
   }

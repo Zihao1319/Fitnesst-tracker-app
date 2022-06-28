@@ -52,3 +52,26 @@ export function checkFilled(arr) {
   }
   return result;
 }
+
+export function checkFilled2(obj) {
+  console.log(obj);
+  let result = false;
+
+  for (const key in obj) {
+    let arr = obj[key];
+    for (let i = 0; i < arr.length; i++) {
+      let weight = arr[i].weight;
+      let reps = arr[i].reps;
+
+      console.log(weight, reps);
+
+      if (weight !== "" && reps !== "") {
+        result = true;
+      } else {
+        result = false;
+      }
+    }
+  }
+
+  return result;
+}

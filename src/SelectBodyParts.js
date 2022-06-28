@@ -4,7 +4,7 @@ import bodyPartOptions from "./options";
 import makeAnimated from "react-select/animated";
 import DisplayExercise from "./displayExercise";
 import DisplayExercise2 from "./displayExercise2";
-import { createRow, checkFilled } from "./utils";
+import { createRow, checkFilled, checkFilled2 } from "./utils";
 
 const animatedComponents = makeAnimated();
 
@@ -15,6 +15,7 @@ class SelectBodyParts extends React.Component {
       selectedOptions: [],
       chosenOptions: [],
       bodyRows: {},
+      isDataFilled: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -152,6 +153,7 @@ class SelectBodyParts extends React.Component {
 
     this.setState({
       bodyRows: currWorkoutRows,
+      isDataFilled: checkFilled2(currWorkoutRows),
     });
     console.log("handleformchange", this.state);
   };
@@ -194,6 +196,7 @@ class SelectBodyParts extends React.Component {
             );
           })}
         </form> */}
+        //{" "}
         <form onSubmit={this.handleFormSubmit}>
           <DisplayExercise2
             bodyParts={this.state.chosenOptions}
@@ -201,12 +204,17 @@ class SelectBodyParts extends React.Component {
             onAddRow={this.addRow}
             onDelRow={this.handleRemoveRow}
             onHandleFormChange={this.handleFormChange}
+            onHandleFormSubmit={this.handleFormSubmit}
           />
-          <button type="submit" onClick={this.handleFormSubmit}>
+          <button
+            type="submit"
+            onClick={this.handleFormSubmit}
+            disabled={!this.state.isDataFilled}
+          >
             Save Workout!
           </button>
         </form>
-        {/* <button onSubmit={this.handleSubmit}>DONE!</button> */}
+        {/* {/* <button onSubmit={this.handleSubmit}>DONE!</button> */}
       </React.Fragment>
     );
   }
