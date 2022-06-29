@@ -35,25 +35,25 @@ export function createRow(obj, num) {
   return hash;
 }
 
-export function checkFilled(arr) {
-  const arrLength = arr.length;
-  let result = false;
-  for (let i = 0; i < arr.length; i++) {
-    let weight = arr[i].weight;
-    let reps = arr[i].reps;
+// export function checkFilled(arr) {
+//   const arrLength = arr.length;
+//   let result = false;
+//   for (let i = 0; i < arr.length; i++) {
+//     let weight = arr[i].weight;
+//     let reps = arr[i].reps;
 
-    console.log(weight, reps);
+//     console.log(weight, reps);
 
-    if (weight !== "" && reps !== "") {
-      result = true;
-    } else {
-      result = false;
-    }
-  }
-  return result;
-}
+//     if (weight !== "" && reps !== "") {
+//       result = true;
+//     } else {
+//       result = false;
+//     }
+//   }
+//   return result;
+// }
 
-export function checkFilled2(obj) {
+export function checkFilled(obj) {
   console.log(obj);
   let result = false;
 
@@ -63,12 +63,13 @@ export function checkFilled2(obj) {
       let weight = arr[i].weight;
       let reps = arr[i].reps;
 
-      console.log(weight, reps);
+      // console.log(obj[key], weight, reps);
 
       if (weight !== "" && reps !== "") {
         result = true;
       } else {
         result = false;
+        return result
       }
     }
   }

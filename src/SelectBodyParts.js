@@ -4,7 +4,7 @@ import bodyPartOptions from "./options";
 import makeAnimated from "react-select/animated";
 import DisplayExercise from "./displayExercise";
 import DisplayExercise2 from "./displayExercise2";
-import { createRow, checkFilled, checkFilled2 } from "./utils";
+import { createRow, checkFilled } from "./utils";
 
 const animatedComponents = makeAnimated();
 
@@ -16,6 +16,7 @@ class SelectBodyParts extends React.Component {
       chosenOptions: [],
       bodyRows: {},
       isDataFilled: false,
+      
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,22 +28,55 @@ class SelectBodyParts extends React.Component {
     });
   }
 
+  // when proceed button is clicked
   handleSubmit(e) {
     e.preventDefault();
     console.log("form submitted");
-    const selectedOptions = this.state.selectedOptions;
-    const rows = createRow(
-      this.state.selectedOptions,
-      this.state.selectedOptions.length
-    );
+    const selectedOptions = this.state.selectedOptions; 
+    // const rows = createRow(
+    //   this.state.selectedOptions,
+    //   this.state.selectedOptions.length
+    // );
 
+    const rows = this.state.bodyRows
+    const rowsLength = selectedOptions.length
+    
+    // for (let i = 0; i < rowsLength; i++) {
+    //   const workout = this.state.selectedOptions[i].label
+    //   console.log(workout)
+    //   if (workout in rows) {
+    //     if (workout.includes(workout))
+    //     return
+
+    //   } else {
+    //     rows[workout] = []
+    //   }
+
+    // }
+  
+    this.state.selectedOptions.map ((exercise, index) => {
+      const workout = exercise.label
+    
+        if (workout in rows) {
+          return
+  
+        } else {
+          rows[workout] = []
+        }
+        console.log(workout, this.state.bodyRows[workout])
+      
+    })
+    
     this.setState({
       chosenOptions: selectedOptions,
       bodyRows: rows,
     });
     console.log(this.state);
+    console.log(this.state.bodyRows)
+
   }
 
+  // when save workout button is clicked
   handleFormSubmit = (e) => {
     e.preventDefault();
     console.log("handle form submit");
@@ -88,6 +122,7 @@ class SelectBodyParts extends React.Component {
     if (prevRows.length === 0) {
       //   console.log("no previous row");
       prevRows.push({ id: 0, weight: "", reps: "" });
+
     } else {
       const length = prevRows.length;
 
@@ -110,6 +145,7 @@ class SelectBodyParts extends React.Component {
     this.setState({
       // workoutRows: currWorkoutRows,
       bodyRows: currWorkoutRows,
+      isDataFilled: checkFilled(currWorkoutRows)
     });
     // console.log("added new row", this.state);
   };
@@ -128,6 +164,7 @@ class SelectBodyParts extends React.Component {
 
     this.setState({
       bodyRows: currWorkoutRows,
+      isDataFilled: checkFilled(currWorkoutRows)
     });
     // console.log("delete row",this.state )
   };
@@ -153,7 +190,7 @@ class SelectBodyParts extends React.Component {
 
     this.setState({
       bodyRows: currWorkoutRows,
-      isDataFilled: checkFilled2(currWorkoutRows),
+      isDataFilled: checkFilled(currWorkoutRows),
     });
     console.log("handleformchange", this.state);
   };
