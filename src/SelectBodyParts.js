@@ -4,7 +4,7 @@ import bodyPartOptions from "./options";
 import makeAnimated from "react-select/animated";
 import DisplayExercise from "./displayExercise";
 import DisplayExercise2 from "./displayExercise2";
-import { createRow, checkFilled } from "./utils";
+import { createRow, checkFilled, extractToArr } from "./utils";
 
 const animatedComponents = makeAnimated();
 
@@ -16,7 +16,8 @@ class SelectBodyParts extends React.Component {
       chosenOptions: [],
       bodyRows: {},
       isDataFilled: false,
-      
+      check: false,
+      displayData: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,66 +33,72 @@ class SelectBodyParts extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     console.log("form submitted");
-    const selectedOptions = this.state.selectedOptions; 
+    const selectedOptions = this.state.selectedOptions;
     // const rows = createRow(
     //   this.state.selectedOptions,
     //   this.state.selectedOptions.length
     // );
 
-    const rows = this.state.bodyRows
-    const rowsLength = selectedOptions.length
-    
-    // for (let i = 0; i < rowsLength; i++) {
-    //   const workout = this.state.selectedOptions[i].label
-    //   console.log(workout)
-    //   if (workout in rows) {
-    //     if (workout.includes(workout))
-    //     return
+    const rows = this.state.bodyRows;
+    console.log(rows);
 
-    //   } else {
-    //     rows[workout] = []
-    //   }
+    this.state.selectedOptions.map((exercise, index) => {
+      const workout = exercise.label;
 
-    // }
-  
-    this.state.selectedOptions.map ((exercise, index) => {
-      const workout = exercise.label
-    
-        if (workout in rows) {
-          return
-  
-        } else {
-          rows[workout] = []
-        }
-        console.log(workout, this.state.bodyRows[workout])
-      
-    })
-    
+      // creating workouts in the rows to be displayed
+      if (workout in rows) {
+        return;
+      } else {
+        rows[workout] = [];
+      }
+      console.log(workout, this.state.bodyRows[workout]);
+    });
+
+    const selectedOptionsArr = extractToArr(selectedOptions, "label");
+    const rowKeys = Object.keys(rows);
+    const rowLength = rowKeys.length;
+
+    // delete any workoutRows that have been removed
+    for (let i = 0; i < rowLength; i++) {
+      if (!selectedOptionsArr.includes(rowKeys[i])) {
+        console.log(rowKeys[i], "has to be removed");
+        delete rows[rowKeys[i]];
+      }
+    }
+
     this.setState({
       chosenOptions: selectedOptions,
       bodyRows: rows,
     });
     console.log(this.state);
-    console.log(this.state.bodyRows)
-
   }
 
   // when save workout button is clicked
   handleFormSubmit = (e) => {
     e.preventDefault();
     console.log("handle form submit");
-    // const selectedOptions = this.state.selectedOptions;
-    // const rows = createRow(
-    //   this.state.selectedOptions,
-    //   this.state.selectedOptions.length
-    // );
+    const displayData = this.state.bodyRows;
 
-    // this.setState({
-    //   chosenOptions: selectedOptions,
-    //   bodyRows: rows,
-    // });
-    console.log(this.state);
+    this.setState({
+      displayData: displayData,
+      // bodyRows: {},
+      // selectedOptions: [],
+      // chosenOptions: [],
+      // isDataFilled: false,
+    });
+    this.reset();
+    console.log(this.state.displayData);
   };
+
+  reset = (e) => {
+    this.setState({
+      bodyRows: {},
+      selectedOptions: [],
+      chosenOptions: [],
+      isDataFilled: false,
+    });
+  };
+
   // setRows = (event) => {
   //   const rows = createRow(
   //     this.state.chosenOptions,
@@ -122,7 +129,6 @@ class SelectBodyParts extends React.Component {
     if (prevRows.length === 0) {
       //   console.log("no previous row");
       prevRows.push({ id: 0, weight: "", reps: "" });
-
     } else {
       const length = prevRows.length;
 
@@ -145,7 +151,7 @@ class SelectBodyParts extends React.Component {
     this.setState({
       // workoutRows: currWorkoutRows,
       bodyRows: currWorkoutRows,
-      isDataFilled: checkFilled(currWorkoutRows)
+      isDataFilled: checkFilled(currWorkoutRows),
     });
     // console.log("added new row", this.state);
   };
@@ -164,7 +170,7 @@ class SelectBodyParts extends React.Component {
 
     this.setState({
       bodyRows: currWorkoutRows,
-      isDataFilled: checkFilled(currWorkoutRows)
+      isDataFilled: checkFilled(currWorkoutRows),
     });
     // console.log("delete row",this.state )
   };
@@ -195,6 +201,13 @@ class SelectBodyParts extends React.Component {
     console.log("handleformchange", this.state);
   };
 
+  toggleColor = (index, event) => {
+    this.setState((prevState) => ({
+      check: !prevState.check,
+    }));
+    console.log(this.state.check);
+  };
+
   render() {
     const { selectedOptions } = this.state;
     // console.log(this.state.bodyRows);
@@ -210,7 +223,6 @@ class SelectBodyParts extends React.Component {
             required="required"
             closeMenuOnSelect={false}
             components={animatedComponents}
-            // defaultValue={[bodyPartOptions[0], bodyPartOptions[2]]}
             isMulti
             options={bodyPartOptions}
             isMultiValue={selectedOptions}
@@ -219,21 +231,6 @@ class SelectBodyParts extends React.Component {
 
           <button type="submit">Proceed</button>
         </form>
-        {/* <form onSubmit={this.handleSubmit}>
-          {this.state.chosenOptions.map((input, index) => {
-            return (
-              <DisplayExercise
-                index={index}
-                input={input.label}
-                workoutRows={createRow(
-                  this.state.chosenOptions,
-                  this.state.chosenOptions.length
-                )}
-              />
-            );
-          })}
-        </form> */}
-        //{" "}
         <form onSubmit={this.handleFormSubmit}>
           <DisplayExercise2
             bodyParts={this.state.chosenOptions}
@@ -242,6 +239,8 @@ class SelectBodyParts extends React.Component {
             onDelRow={this.handleRemoveRow}
             onHandleFormChange={this.handleFormChange}
             onHandleFormSubmit={this.handleFormSubmit}
+            onToggleColor={this.toggleColor}
+            check={this.state.check}
           />
           <button
             type="submit"
@@ -251,7 +250,6 @@ class SelectBodyParts extends React.Component {
             Save Workout!
           </button>
         </form>
-        {/* {/* <button onSubmit={this.handleSubmit}>DONE!</button> */}
       </React.Fragment>
     );
   }

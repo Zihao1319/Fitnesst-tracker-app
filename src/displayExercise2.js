@@ -14,6 +14,16 @@ class DisplayExercise2 extends React.Component {
     // };
     // console.log(this.state);
   }
+  toggleColor = (event) => {
+    this.props.onToggleColor(event);
+    console.log("toggled color");
+  };
+
+  //   toggleColor = () => {
+  //     this.setState((prevState) => ({
+  //       check: !prevState.check,
+  //     }));
+  //   };
 
   //   addRow = (event) => {
   //     console.log(event);
@@ -155,7 +165,7 @@ class DisplayExercise2 extends React.Component {
                 return (
                   <div>
                     <tbody>
-                      <tr>
+                      <tr className={this.props.check ? "green" : ""}>
                         <td>Set: {index + 1}</td>
                         <td>
                           <input
@@ -164,11 +174,9 @@ class DisplayExercise2 extends React.Component {
                             name="weight"
                             placeholder="Enter weights (kg)"
                             id={bodyPart.label}
-                            // value={this.state.workoutRows[bodyParts].weight}
                             onChange={(event) =>
                               this.handleFormChange(index, event)
                             }
-                            // onChange={this.handleFormChange}
                           ></input>
                         </td>
                         <td>
@@ -178,7 +186,6 @@ class DisplayExercise2 extends React.Component {
                             name="reps"
                             placeholder="Enter reps"
                             id={bodyPart.label}
-                            //   value={this.state.workoutRows[bodyParts].reps}
                             onChange={(event) =>
                               this.handleFormChange(index, event)
                             }
@@ -187,9 +194,7 @@ class DisplayExercise2 extends React.Component {
                         <td>
                           <button
                             type="button"
-                            //   onClick={(event) =>
-                            //     this.changeColor(event, index, bodyParts)
-                            //   }
+                            onClick={(event) => this.toggleColor(event, index)}
                           >
                             Done
                           </button>
@@ -216,10 +221,6 @@ class DisplayExercise2 extends React.Component {
             </table>
           );
         })}
-        {/* <button type="submit" onClick={this.handleFormSubmit}>
-            Save Workout!
-          </button> */}
-        {/* </form> */}
       </div>
     );
   }

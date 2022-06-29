@@ -17,6 +17,8 @@ export function extractToArr(obj, key) {
       arr.push(obj[i].date);
     } else if (key === "bmi") {
       arr.push(obj[i].bmi);
+    } else if (key === "label") {
+      arr.push(obj[i].label);
     }
   }
   // console.log(arr);
@@ -69,10 +71,12 @@ export function checkFilled(obj) {
         result = true;
       } else {
         result = false;
-        return result
+        return result;
       }
     }
   }
 
   return result;
 }
+
+export function makeWorkoutGrid(obj) {}
