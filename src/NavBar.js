@@ -1,5 +1,7 @@
 // import React from "react";
 import { Link } from "react-router-dom";
+import "./NavBar.css";
+
 
 // function NavBar() {
 //   return (
@@ -38,6 +40,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 
 const pages = ["BMI Calculator", "Workouts", "Dashboard"];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -65,7 +68,7 @@ const ResponsiveAppBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <FitnessCenterIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -140,19 +143,19 @@ const ResponsiveAppBar = () => {
             Stronger
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Button
+            <Button className = "green"
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
             >
               <Link to="/bmicalculator">BMI Calculator</Link>
             </Button>
-            <Button
+            <Button className = "green"
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
             >
               <Link to="/workoutdiary">Workouts</Link>
             </Button>
-            <Button
+            <Button className = "green"
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
             >
