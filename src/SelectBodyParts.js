@@ -5,8 +5,38 @@ import makeAnimated from "react-select/animated";
 import DisplayExercise from "./displayExercise";
 import DisplayExercise2 from "./displayExercise2";
 import { createRow, checkFilled, extractToArr } from "./utils";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Grid from "@material-ui/core/Grid";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from "@mui/material/styles";
+import Divider from "@mui/material/Divider";
 
 const animatedComponents = makeAnimated();
+
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+  },
+});
 
 class SelectBodyParts extends React.Component {
   constructor(props) {
@@ -216,40 +246,93 @@ class SelectBodyParts extends React.Component {
     // );
     return (
       <React.Fragment>
-        What would you like to focus on today?
-        <br></br>
-        <form onSubmit={this.handleSubmit}>
-          <Select
-            required="required"
-            closeMenuOnSelect={false}
-            components={animatedComponents}
-            isMulti
-            options={bodyPartOptions}
-            isMultiValue={selectedOptions}
-            onChange={this.handleChange}
-          />
-
-          <button type="submit">Proceed</button>
-        </form>
-        <form onSubmit={this.handleFormSubmit}>
-          <DisplayExercise2
-            bodyParts={this.state.chosenOptions}
-            workoutRows={this.state.bodyRows}
-            onAddRow={this.addRow}
-            onDelRow={this.handleRemoveRow}
-            onHandleFormChange={this.handleFormChange}
-            onHandleFormSubmit={this.handleFormSubmit}
-            onToggleColor={this.toggleColor}
-            check={this.state.check}
-          />
-          <button
-            type="submit"
-            onClick={this.handleFormSubmit}
-            disabled={!this.state.isDataFilled}
+        <ThemeProvider theme={theme}>
+          <Stack
+            spacing={2}
+            justifyContent="center"
+            alignItems="center"
+            direction="row"
           >
-            Save Workout!
-          </button>
-        </form>
+            <Container
+              maxWidth="sm"
+              sx={{
+                bgcolor: "#e8f5ff",
+                p: 2,
+                m: 5,
+              }}
+            >
+              <Typography
+                variant="h5"
+                align="center"
+                sx={{
+                  m: 3,
+                }}
+              >
+                What would you like to work on today?
+              </Typography>
+              <Grid item>
+                <Box component="form" onSubmit={this.handleSubmit}>
+                  <Select
+                    required="required"
+                    closeMenuOnSelect={false}
+                    components={animatedComponents}
+                    label="What would you like to focus on today?"
+                    isMulti
+                    options={bodyPartOptions}
+                    isMultiValue={selectedOptions}
+                    onChange={this.handleChange}
+                    variant="outlined"
+                    autoWidth="true"
+                  />
+                  <Button
+                    type="submit"
+                    sx={{
+                      fontWeight: "bold",
+                      textAlign: "center",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    Proceed
+                  </Button>
+                </Box>
+              </Grid>
+              <Grid>
+                <Box
+                  component="form"
+                  onSubmit={this.handleFormSubmit}
+                  sx={{
+                    fontWeight: "bold",
+                    typography: "h5",
+                    textAlign: "center",
+                    m: 1,
+                    t: 2,
+                  }}
+                >
+                  {/* <form onSubmit={this.handleFormSubmit}> */}
+                  <DisplayExercise2
+                    bodyParts={this.state.chosenOptions}
+                    workoutRows={this.state.bodyRows}
+                    onAddRow={this.addRow}
+                    onDelRow={this.handleRemoveRow}
+                    onHandleFormChange={this.handleFormChange}
+                    onHandleFormSubmit={this.handleFormSubmit}
+                    onToggleColor={this.toggleColor}
+                    check={this.state.check}
+                  />
+                  <Button
+                    type="submit"
+                    onClick={this.handleFormSubmit}
+                    disabled={!this.state.isDataFilled}
+                  >
+                    Save Workout!
+                  </Button>
+                  {/* </form> */}
+                </Box>
+              </Grid>
+            </Container>
+          </Stack>
+        </ThemeProvider>
       </React.Fragment>
     );
   }

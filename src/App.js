@@ -15,7 +15,12 @@ function App() {
         <Route exact path="/" element={<BmiComponent />} />
         <Route exact path="/bmicalculator" element={<BmiComponent />} />
         <Route exact path="/workoutdiary" element={<SelectBodyParts />} />
-        <Route exact path="/dashboard" element={<DashBoard />} />
+        <Route
+          exact
+          path="/dashboard"
+          element={<DashBoard />}
+          render={(props) => <DashBoard {...props} />}
+        />
       </Routes>
     </div>
   );

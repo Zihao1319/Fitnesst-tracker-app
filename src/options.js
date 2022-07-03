@@ -65,10 +65,6 @@ const bodyPartOptions = [
       { label: "Cable Bicep Curl", value: "Cable Bicep Curl" },
     ],
   },
-  {
-    label: "I'm feeling lucky!",
-    value: "I'm feeling lucky!",
-  },
 ];
 
 export default bodyPartOptions;

@@ -19,9 +19,10 @@ class LChart extends React.Component {
               {
                 label: "BMI data",
                 fill: false,
-                lineTension: 0.5,
+                lineTension: 0,
                 backgroundColor: "rgba(75,192,192,1)",
                 borderColor: "rgba(0,0,0,1)",
+                pointHoverBackgroundColor: "red",
                 borderWidth: 2,
                 data: extractToArr(this.props.chartData, "bmi"),
               },

@@ -2,6 +2,17 @@ import "./DisplayExercise.css";
 import React from "react";
 import options from "./options";
 import { checkFilled } from "./utils";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import { fontSize } from "@mui/system";
+import Divider from "@mui/material/Divider";
 
 class DisplayExercise2 extends React.Component {
   constructor(props) {
@@ -155,72 +166,105 @@ class DisplayExercise2 extends React.Component {
         {/* <form onSubmit={this.handleFormSubmit}> */}
         {bodyParts.map((bodyPart, index) => {
           return (
-            <table>
-              <thead>
-                <tr>
-                  <th>Exercise for {bodyPart.label}</th>
-                </tr>
-              </thead>
-              {workoutRows[bodyPart.label].map((input, index) => {
-                return (
-                  <div>
-                    <tbody>
-                      <tr className={this.props.check ? "green" : ""}>
-                        <td>Set: {index + 1}</td>
-                        <td>
-                          <input
-                            type="number"
-                            required
-                            name="weight"
-                            placeholder="Enter weights (kg)"
-                            id={bodyPart.label}
-                            onChange={(event) =>
-                              this.handleFormChange(index, event)
-                            }
-                          ></input>
-                        </td>
-                        <td>
-                          <input
-                            type="number"
-                            required
-                            name="reps"
-                            placeholder="Enter reps"
-                            id={bodyPart.label}
-                            onChange={(event) =>
-                              this.handleFormChange(index, event)
-                            }
-                          ></input>
-                        </td>
-                        <td>
-                          <button
-                            type="button"
-                            onClick={(event) => this.toggleColor(event, index)}
+            <TableContainer sx={{ width: "inherit", mt: 5 }}>
+              <Table
+                sx={{ minWidth: "inherit" }}
+                size="small"
+                // aria-label="a dense table"
+              >
+                <TableHead>
+                  <TableRow component="th">{bodyPart.label}</TableRow>
+                </TableHead>
+                {workoutRows[bodyPart.label].map((input, index) => {
+                  return (
+                    <div>
+                      <TableBody>
+                        <TableRow className={this.props.check ? "green" : ""}>
+                          <TableCell
+                            style={{
+                              width: "20%",
+                              fontSize: "12pt",
+                              textAlign: "center",
+                            }}
                           >
-                            Done
-                          </button>
-                        </td>
-                        <td>
-                          <button
-                            type="button"
-                            id={bodyPart.label}
-                            onClick={(event) =>
-                              this.handleRemoveRow(event, index)
-                            }
+                            Set: {index + 1}
+                          </TableCell>
+                          <TableCell
+                            style={{
+                              width: "40%",
+                              fontSize: "12pt",
+                              padding: 4,
+                            }}
                           >
-                            X
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </div>
-                );
-              })}
-              <button type="button" id={bodyPart.label} onClick={this.addRow}>
-                Add row
-              </button>
-            </table>
+                            <TextField
+                              type="number"
+                              required
+                              name="weight"
+                              placeholder="Enter kg"
+                              id={bodyPart.label}
+                              size="small"
+                              onChange={(event) =>
+                                this.handleFormChange(index, event)
+                              }
+                            ></TextField>
+                          </TableCell>
+                          <TableCell
+                            style={{
+                              width: "40%",
+                              fontSize: "1pt",
+                              padding: 4,
+                            }}
+                          >
+                            <TextField
+                              type="number"
+                              required
+                              name="reps"
+                              placeholder="Enter reps"
+                              id={bodyPart.label}
+                              size="small"
+                              onChange={(event) =>
+                                this.handleFormChange(index, event)
+                              }
+                            ></TextField>
+                          </TableCell>
+                          {/* <TableCell>
+                            <Button
+                              type="button"
+                              onClick={(event) =>
+                                this.toggleColor(event, index)
+                              }
+                            >
+                              Done
+                            </Button>
+                          </TableCell> */}
+                          <TableCell>
+                            <Button
+                              type="button"
+                              id={bodyPart.label}
+                              onClick={(event) =>
+                                this.handleRemoveRow(event, index)
+                              }
+                              style={{
+                                width: "1%",
+                                padding: 1,
+                              }}
+                            >
+                              X
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </div>
+                  );
+                })}
+                <Button type="button" id={bodyPart.label} onClick={this.addRow}>
+                  Add row
+                </Button>
+              </Table>
+            </TableContainer>
           );
         })}
+        <Divider />
       </div>
     );
   }

@@ -9,6 +9,7 @@ export function bmiCalculator(weight, height) {
 }
 
 export function extractToArr(obj, key) {
+  console.log(obj);
   let length = obj.length;
   let arr = [];
 
@@ -79,4 +80,30 @@ export function checkFilled(obj) {
   return result;
 }
 
-export function makeWorkoutGrid(obj) {}
+export function checkHWData(height, weight) {
+  let result = false;
+
+  if (height > 0 && weight > 0) {
+    result = true;
+  } else {
+    result = false;
+    console.log(result);
+    return result;
+  }
+  console.log(result);
+  return result;
+}
+
+export function displayColor(value) {
+  if (value < 18.5) {
+    return "blue";
+  } else if (value >= 18.5 && value < 25) {
+    return "green";
+  } else if (value >= 25 && value < 30) {
+    return "#adb012";
+  } else if (value >= 30) {
+    return "red";
+  } else {
+    return "lightgrey";
+  }
+}
