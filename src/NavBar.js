@@ -87,19 +87,19 @@ const ResponsiveAppBar = () => {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                <Link to="/bmicalculator">BMI Calculator</Link>
+                <Link to="/bmicalculator" style={{ textDecoration: "none"}}>BMI Calculator</Link>
               </Button>
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                <Link to="/workoutdiary">Workouts</Link>
+                <Link to="/workoutdiary" style={{ textDecoration: "none" }}>Workouts</Link>
               </Button>
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/dashboard" style={{ textDecoration: "none" }}>Dashboard</Link>
               </Button>
 
               {/* {pages.map((page) => (

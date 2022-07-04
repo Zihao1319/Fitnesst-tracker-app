@@ -17,7 +17,8 @@ import {
   responsiveFontSizes,
   ThemeProvider,
 } from "@mui/material/styles";
-import Divider from "@mui/material/Divider";
+import ls from "local-storage";
+
 
 const animatedComponents = makeAnimated();
 
@@ -115,10 +116,18 @@ class SelectBodyParts extends React.Component {
       // selectedOptions: [],
       // chosenOptions: [],
       // isDataFilled: false,
+    }, () => {
+      this.submitToDashBoard();
     });
-    this.reset();
+
+    // this.reset();
     console.log(this.state.displayData);
   };
+
+  submitToDashBoard = () => {
+    ls.set("workoutRecords", this.state.displayData);
+    console.log(ls.get("workoutRecords"));
+  }
 
   reset = (e) => {
     this.setState({

@@ -2,15 +2,17 @@ import React from "react";
 import { useLocation, Link } from "react-router-dom";
 import LChart from "./bmiChart";
 import Typography from "@mui/material/Typography";
+import WorkoutSummary from "./WorkoutSummary";
 
 import ls from "local-storage";
 
 const DashBoard = () => {
   const location = useLocation();
   const state = location.state;
-  const localS = ls.get("bmiRecords");
-
-  console.log(localS);
+  const bmiRecords = ls.get("bmiRecords");
+  const workoutData = ls.get("workoutRecords");
+  console.log(bmiRecords);
+  console.log(workoutData);
 
   return (
     <>
@@ -23,7 +25,7 @@ const DashBoard = () => {
       >
         BMI Index History{" "}
       </Typography>
-      <LChart chartData={localS} />
+      <LChart chartData={bmiRecords} />
       {/* {state && (
         <>
           {state.map((bmiRecord, index) => {
@@ -36,6 +38,7 @@ const DashBoard = () => {
           })}
         </>
       )} */}
+      <WorkoutSummary workoutData = {workoutData} />
     </>
   );
 };
