@@ -2,9 +2,8 @@ import React from "react";
 import Select from "react-select";
 import bodyPartOptions from "./options";
 import makeAnimated from "react-select/animated";
-import DisplayExercise from "./displayExercise";
 import DisplayExercise2 from "./displayExercise2";
-import { createRow, checkFilled, extractToArr } from "./utils";
+import { checkFilled, extractToArr } from "./utils";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@material-ui/core/Grid";
@@ -12,13 +11,9 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import {
-  createTheme,
-  responsiveFontSizes,
-  ThemeProvider,
-} from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ls from "local-storage";
-
+import SuccessAlerts from "./AlertMsg";
 
 const animatedComponents = makeAnimated();
 
@@ -110,24 +105,28 @@ class SelectBodyParts extends React.Component {
     console.log("handle form submit");
     const displayData = this.state.bodyRows;
 
-    this.setState({
-      displayData: displayData,
-      // bodyRows: {},
-      // selectedOptions: [],
-      // chosenOptions: [],
-      // isDataFilled: false,
-    }, () => {
-      this.submitToDashBoard();
-    });
+    this.setState(
+      {
+        displayData: displayData,
+        // bodyRows: {},
+        // selectedOptions: [],
+        // chosenOptions: [],
+        // isDataFilled: false,
+      },
+      () => {
+        this.submitToDashBoard();
+      }
+    );
 
-    // this.reset();
+    this.reset();
+    // BasicAlerts();
     console.log(this.state.displayData);
   };
 
   submitToDashBoard = () => {
     ls.set("workoutRecords", this.state.displayData);
     console.log(ls.get("workoutRecords"));
-  }
+  };
 
   reset = (e) => {
     this.setState({
@@ -240,12 +239,12 @@ class SelectBodyParts extends React.Component {
     console.log("handleformchange", this.state);
   };
 
-  toggleColor = (index, event) => {
-    this.setState((prevState) => ({
-      check: !prevState.check,
-    }));
-    console.log(this.state.check);
-  };
+  // toggleColor = (index, event) => {
+  //   this.setState((prevState) => ({
+  //     check: !prevState.check,
+  //   }));
+  //   console.log(this.state.check);
+  // };
 
   render() {
     const { selectedOptions } = this.state;
@@ -336,7 +335,7 @@ class SelectBodyParts extends React.Component {
                   >
                     Save Workout!
                   </Button>
-                  {/* </form> */}
+                  {this.state.displayData && <SuccessAlerts />}
                 </Box>
               </Grid>
             </Container>

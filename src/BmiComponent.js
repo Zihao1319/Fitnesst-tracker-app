@@ -14,7 +14,7 @@ import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 import SemiCircleProgressBar from "react-progressbar-semicircle";
 import Typography from "@mui/material/Typography";
-
+import SuccessAlerts from "./AlertMsg";
 import ls from "local-storage";
 
 class BmiComponent extends React.Component {
@@ -26,6 +26,7 @@ class BmiComponent extends React.Component {
       bmi: "-",
       message: "",
       isDataFilled: false,
+      isSaved: false,
       // currDate: "June 26, 2022",
       currDate: moment().format("LL"),
       bmiRecords: ls.get("bmiRecords") || [
@@ -159,6 +160,9 @@ class BmiComponent extends React.Component {
 
   submitToDashBoard = () => {
     ls.set("bmiRecords", this.state.bmiRecords);
+    this.setState({
+      isSaved: true,
+    });
     console.log(ls.get("bmiRecords"));
   };
 
@@ -312,6 +316,7 @@ class BmiComponent extends React.Component {
                     </Link> */}
                     Save Data
                   </Button>
+                  {this.state.isSaved === true && <SuccessAlerts />}
                   {/* <Link
                     to={{
                       pathname: "/dashboard",
@@ -351,7 +356,7 @@ class BmiComponent extends React.Component {
           <input type="submit" name="submit" value="Calculate" />
         </form> */}
 
-        {isFilled ? bmiResult : "Please key in the correct value"}
+        {/* {isFilled ? bmiResult : "Please key in the correct value"}
         {isFilled ? message : ""}
 
         {this.state.bmiRecords.map((bmiRecords, i) => {
@@ -361,15 +366,14 @@ class BmiComponent extends React.Component {
               {bmiRecords.date} : {bmiRecords.bmi}
             </div>
           );
-        })}
+        })} */}
 
-        <div>
+        {/* <div>
           <LChart chartData={this.state.bmiRecords} />
           {/* <WorkoutPage /> */}
-          <br></br>
-          <br></br>
-          {/* <SelectBodyParts /> */}
-        </div>
+
+        {/* <SelectBodyParts /> */}
+        {/* </div> */}
       </div>
     );
   }
