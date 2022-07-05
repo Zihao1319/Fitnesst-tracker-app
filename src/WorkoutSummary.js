@@ -36,13 +36,14 @@ class WorkoutSummary extends React.Component {
       >
         <TableHead> Workouts done on {currDate}: </TableHead>
         {workoutNames.map((workout, index) => {
+           
           return (
             <>
               <Box sx={{ mt: 2 }} key={index}>
                 {workout}:
               </Box>
 
-              {data[workout].map((data, index) => {
+              {data[workout]!=="" && data[workout].map((data, index) => {
                 return (
                   <ListItem sx={{ display: "list-item", p: 0.5 }}>
                     {data.weight} kg x {data.reps} reps
@@ -51,7 +52,7 @@ class WorkoutSummary extends React.Component {
               })}
             </>
           );
-        })}
+        } )}
       </TableContainer>
     );
   }

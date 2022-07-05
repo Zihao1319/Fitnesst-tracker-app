@@ -119,7 +119,6 @@ class SelectBodyParts extends React.Component {
     );
 
     this.reset();
-    // BasicAlerts();
     console.log(this.state.displayData);
   };
 

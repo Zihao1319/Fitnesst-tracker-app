@@ -9,7 +9,7 @@ export function bmiCalculator(weight, height) {
 }
 
 export function extractToArr(obj, key) {
-  console.log(obj);
+  // console.log(obj);
   let length = obj.length;
   let arr = [];
 
@@ -57,7 +57,7 @@ export function createRow(obj, num) {
 // }
 
 export function checkFilled(obj) {
-  console.log(obj);
+  // console.log(obj);
   let result = false;
 
   for (const key in obj) {
@@ -87,10 +87,10 @@ export function checkHWData(height, weight) {
     result = true;
   } else {
     result = false;
-    console.log(result);
+    // console.log(result);
     return result;
   }
-  console.log(result);
+  // console.log(result);
   return result;
 }
 
@@ -106,4 +106,8 @@ export function displayColor(value) {
   } else {
     return "lightgrey";
   }
+}
+
+export default function displayGrid (obj) {
+  
 }
