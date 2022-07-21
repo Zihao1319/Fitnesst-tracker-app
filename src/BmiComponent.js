@@ -2,16 +2,12 @@ import React from "react";
 import "./index.css";
 import { bmiCalculator, checkHWData, displayColor } from "./utils";
 import moment from "moment";
-import LChart from "./bmiChart";
-import WorkoutPage from "./workoutpage";
-import SelectBodyParts from "./SelectBodyParts";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import InputAdornment from "@mui/material/InputAdornment";
 import Button from "@mui/material/Button";
 import Grid from "@material-ui/core/Grid";
 import Stack from "@mui/material/Stack";
-import Container from "@mui/material/Container";
 import SemiCircleProgressBar from "react-progressbar-semicircle";
 import Typography from "@mui/material/Typography";
 import SuccessAlerts from "./AlertMsg";
@@ -40,19 +36,9 @@ class BmiComponent extends React.Component {
     };
   }
 
-  // componentDidUpdate() {
-  //   this.setState({
-  //     isDataFilled: checkHWData(this.state.height, this.state.weight),
-  //   });
-  // }
-
   handleChange = (e) => {
     e.preventDefault();
     const input = e.target.value;
-    // if (this.state.height !== "" && this.state.weight !== "") {
-    //   dataIsFilled = true;
-    // }
-
     let height = this.state.height;
     let weight = this.state.weight;
 
@@ -69,9 +55,6 @@ class BmiComponent extends React.Component {
       isDataFilled: checkHWData(height, weight),
     });
 
-    // const isEmpty = this.state.bmi === "";
-    // const isNan = isNaN(this.state.bmi);
-    // const isNull = this.state.bmi === 0;
     console.log(this.state);
     // console.log(isEmpty, isNan, isNull);
   };
@@ -215,11 +198,6 @@ class BmiComponent extends React.Component {
                 {this.state.message}
               </Box>
 
-              {/* <Text style={{ fontSize: 20, color: "black" }}>
-                  Your BMI Index: <br></br>
-                  {this.state.bmi}
-                </Text> */}
-
               <Box
                 component="form"
                 onSubmit={this.handleSubmit}
@@ -307,73 +285,16 @@ class BmiComponent extends React.Component {
                     }
                     color="inherit"
                   >
-                    {/* <Link
-                      to="/dashboard"
-                      state={this.state.bmiRecords}
-                      color="inherit"
-                    >
-                      Save Data
-                    </Link> */}
                     Save Data
                   </Button>
                   {this.state.isSaved === true && <SuccessAlerts />}
-                  {/* <Link
-                    to={{
-                      pathname: "/dashboard",
-                      data: {
-                        bmiRecords: this.state.bmi,
-                      },
-                    }}
-                  >
-                    haha
-                  </Link> */}
+                
                 </Box>
               </Box>
             </Box>
           </Stack>
         </Grid>
-        {/* <form onSubmit={this.handleSubmit}>
-          <label>
-            Height:
-            <input
-              type="float"
-              name="height"
-              value={this.state.value}
-              placeholder="in (m)"
-              onChange={this.handleChange}
-            />
-          </label>
-          <label>
-            Weight:
-            <input
-              type="number"
-              name="weight"
-              value={this.state.value}
-              placeholder="in (kg)"
-              onChange={this.handleChange}
-            />
-          </label>
-          <input type="submit" name="submit" value="Calculate" />
-        </form> */}
-
-        {/* {isFilled ? bmiResult : "Please key in the correct value"}
-        {isFilled ? message : ""}
-
-        {this.state.bmiRecords.map((bmiRecords, i) => {
-          return (
-            <div key={i}>
-              {" "}
-              {bmiRecords.date} : {bmiRecords.bmi}
-            </div>
-          );
-        })} */}
-
-        {/* <div>
-          <LChart chartData={this.state.bmiRecords} />
-          {/* <WorkoutPage /> */}
-
-        {/* <SelectBodyParts /> */}
-        {/* </div> */}
+      
       </div>
     );
   }

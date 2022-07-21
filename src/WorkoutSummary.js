@@ -1,18 +1,8 @@
 import React, { useLayoutEffect } from "react";
-import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Grid from "@material-ui/core/Grid";
-import Stack from "@mui/material/Stack";
-import { DataObjectSharp } from "@mui/icons-material";
 import moment from "moment";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 
 class WorkoutSummary extends React.Component {

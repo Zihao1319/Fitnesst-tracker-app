@@ -1,4 +1,3 @@
-import "./DisplayExercise.css";
 import React from "react";
 import options from "./options";
 import { checkFilled } from "./utils";
